@@ -12,19 +12,21 @@ app.get('/', function(req, res) {
     res.sendFile('index.html', options);
 });
 
+let user = 0;
+
 io.on('connection', function(socket) {
     console.log('A user connected');
-    
-    // setTimeout(function() {
-    //     socket.emit('myCustomEvent',{description:'Hello world! Send me a message'});
-    // }, 3);
 
-    socket.on('myCustomEventFromClient', function(data){
-        console.log(data);
-        
-    });
+    user++;
+    
+    // Broadcast to all clients the number of connected users
+    io.emit('broadcast', { message: `${user} user(s) connected` });
+
     socket.on('disconnect', function() {
+        user--;
         console.log('User disconnected');
+        // Broadcast the updated count after a user disconnects
+        io.emit('broadcast', { message: `${user} user(s) connected` });
     });
 });
 

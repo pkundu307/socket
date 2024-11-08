@@ -12,9 +12,12 @@
         var socket = io();
         
         // Listen for 'myCustomEvent' instead of 'message'
-        socket.on('myCustomEvent', function(data) {
-            document.write(data.description);
-        });
+      //  socket.on('myCustomEvent', function(data) {
+        //    document.write(data.description);
+        //});
+
+        socket.emit('myCustomEventFromClient',{description:'Hello world! Send me a message'});
+
     </script>
 </body>
 </html>

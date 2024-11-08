@@ -15,10 +15,14 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     console.log('A user connected');
     
-    setTimeout(function() {
-        socket.emit('myCustomEvent',{description:'Hello world! Send me a message'});
-    }, 3);
+    // setTimeout(function() {
+    //     socket.emit('myCustomEvent',{description:'Hello world! Send me a message'});
+    // }, 3);
 
+    socket.on('myCustomEventFromClient', function(data){
+        console.log(data);
+        
+    });
     socket.on('disconnect', function() {
         console.log('User disconnected');
     });
